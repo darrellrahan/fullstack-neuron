@@ -12,7 +12,7 @@ export default function Error({
 }: {
   error: Error;
   reset: () => void;
-}) {
+}): JSX.Element {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -25,19 +25,21 @@ export default function Error({
       <ErrorSvg className="" />
       <div>
         <h1 className="md:text-desktop-display xs:text-mobile-display font-bold text-sys-light-primary">
-          404
+          500
         </h1>
         <h1 className="md:text-desktop-headline xs:text-mobile-headline font-bold mb-4">
-          Page not found
+          {error.message ?? 'Internal Server Error'}
         </h1>
         <p className="md:text-desktop-body xs:text-mobile-body mb-2">
-          The requested URL /blog was not found on this server
+          Something went wrong. Please try again later.
         </p>
         <Button
-          onClick={() => reset()}
+          onClick={() => {
+            reset();
+          }}
           buttonStyle="filled"
           label="REFRESH THE PAGE"
-          size={mediumScreen ? `lg` : 'full'}
+          size={mediumScreen ? 'lg' : 'full'}
           withIcon={true}
           icon={<RefreshRoundedIcon />}
         />
