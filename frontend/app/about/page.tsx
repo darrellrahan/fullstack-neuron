@@ -21,7 +21,7 @@ async function getData(url: string): Promise<any> {
 
 async function page(): Promise<JSX.Element> {
   const aboutData: About = await getData('http://127.0.0.1:8000/api/about');
-
+  console.log(aboutData);
   return (
     <>
       {/* Section: HERO */}
