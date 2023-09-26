@@ -29,7 +29,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('create-blog') }}" class="btn btn-success ml-5">Add Blog</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('create-blog') }}" class="btn btn-success ml-5">Add Blog</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Blog</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -135,8 +139,13 @@
                     <h5 class="card-title">{{ $blog->title }}</h5>
                     <p class="card-text">{{\Illuminate\Support\Str::limit ($blog->desc, 95) }}</p>
                     <div class="float-right">
-                        <a href="{{ route('blog-edit', $blog->id) }}" class="btn btn-success">Edit</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $blog->id }}">Delete</button>
+                        @if(auth()->user()->role->role_name !== 'HCM')
+                            <a href="{{ route('blog-edit', $blog->id) }}" class="btn btn-success">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $blog->id }}">Delete</button>
+                        @else
+                            <button class="btn btn-success" disabled>Edit</button>
+                            <button class="btn btn-danger" disabled>Delete</button>
+                        @endif
                         <a href="{{ route('view-blog', ['id' => $blog->id]) }}" class="btn btn-primary">View</a>
                     </div>
                     <!-- Modal Konfirmasi Hapus -->

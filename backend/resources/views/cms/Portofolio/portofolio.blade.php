@@ -31,7 +31,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('portofolio-create') }}" class="btn btn-success ml-5">Add Portofolio</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('portofolio-create') }}" class="btn btn-success ml-5">Add Portfolio</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Portfolio</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -163,8 +167,13 @@
                         <p class="product-date">{{ $portofolio->created_at->format('d/m/Y') }}</p>
                     </div>
                     <div class="actions">
-                        <a href="{{ route('portofolio-edit', $portofolio->id) }}" class="btn btn-success">Edit</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $portofolio->id }}">Delete</button>
+                        @if(auth()->user()->role->role_name !== 'HCM')
+                            <a href="{{ route('portofolio-edit', $portofolio->id) }}" class="btn btn-success">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $portofolio->id }}">Delete</button>
+                        @else
+                            <button class="btn btn-success" disabled>Edit</button>
+                            <button class="btn btn-danger" disabled>Delete</button>
+                        @endif
                     </div>
                     <!-- Modal Konfirmasi Hapus -->
                     <div class="modal fade" id="confirmDeleteModal{{ $portofolio->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -235,7 +244,11 @@
                                                                 <form method="POST" action="{{ route('delete-technology', ['portofolio_id' => $portofolio->id, 'technology_id' => $portfolioTech->technology->id]) }}">
                                                                     @csrf
                                                                     @method('DELETE')
-                                                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                    @if(auth()->user()->role->role_name !== 'HCM')
+                                                                        <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                    @else
+                                                                        <button class="btn btn-danger ml-3" disabled>Delete</button>
+                                                                    @endif
                                                                 </form>
                                                             </div>
                                                         </li>
@@ -257,7 +270,11 @@
                                                             <form method="POST" action="{{ route('delete-deliverable', ['portofolio_id' => $portofolio->id, 'deliverable_id' => $deliverable->id]) }}">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                @if(auth()->user()->role->role_name !== 'HCM')
+                                                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger ml-3" disabled>Delete</button>
+                                                                @endif
                                                             </form>
                                                         </div>
                                                     </div>
@@ -281,7 +298,11 @@
                                                             <form method="POST" action="{{ route('delete-handle', ['portofolio_id' => $portofolio->id, 'handle_id' => $handle->id]) }}">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                @if(auth()->user()->role->role_name !== 'HCM')
+                                                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                                @else
+                                                                    <button type="button" class="btn btn-danger ml-3" disabled>Delete</button>
+                                                                @endif
                                                             </form>
                                                         </div>
                                                     </div>

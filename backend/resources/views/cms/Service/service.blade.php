@@ -24,7 +24,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('service-create') }}" class="btn btn-success ml-5">Add Service</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('service-create') }}" class="btn btn-success ml-5">Add Service</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Service</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -85,7 +89,11 @@
                                                         <form method="POST" action="{{ route('delete-technology-service', ['id' => $service->id, 'technology_id' => $serviceTech->technology->id]) }}">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                            @if(auth()->user()->role->role_name !== 'HCM')
+                                                                <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                            @else
+                                                                <button class="btn btn-danger ml-3" disabled>Delete</button>
+                                                            @endif
                                                         </form>
                                                     </div>
                                                 </li>
@@ -105,7 +113,11 @@
                                                     <form method="POST" action="{{ route('delete-keyFeature', ['services_id' => $service->id, 'keyfeature_id' => $serviceKey->id]) }}">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                        @if(auth()->user()->role->role_name !== 'HCM')
+                                                            <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                                        @else
+                                                            <button type="button" class="btn btn-danger ml-3" disabled>Delete</button>
+                                                        @endif
                                                     </form>
                                                 </div>
                                             </li>
@@ -117,8 +129,13 @@
                         <img class="service-img" src="{{ asset($service->image) }}" alt="{{ $service->name }}">
                     </div>
                     <div class="actions">
-                        <a href="{{ route('service-edit', $service->id) }}" class="btn btn-success">Edit</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $service->id }}">Delete</button>
+                        @if(auth()->user()->role->role_name !== 'HCM')
+                            <a href="{{ route('service-edit', $service->id) }}" class="btn btn-success">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $service->id }}">Delete</button>
+                        @else
+                            <button class="btn btn-success" disabled>Edit</button>
+                            <button class="btn btn-danger" disabled>Delete</button>
+                        @endif
                     </div>
                     <!-- Modal Konfirmasi Hapus -->
                     <div class="modal fade" id="confirmDeleteModal{{ $service->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">

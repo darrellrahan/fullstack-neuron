@@ -32,9 +32,13 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('technology-store') }}" class="btn btn-success ml-5" data-toggle="modal" data-target="#addTechnologyModal">Add New Technology</a>
-
-                    <a href="#" class="btn btn-success ml-2" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('technology-store') }}" class="btn btn-success ml-5" data-toggle="modal" data-target="#addTechnologyModal">Add New Technology</a>
+                        <a href="#" class="btn btn-success ml-2" data-toggle="modal" data-target="#addCategoryModal">Add Category</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add New Technology</button>
+                        <button class="btn btn-success ml-2" disabled>Add Category</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -65,7 +69,11 @@
                         <td>{{ $technology->name }}</td>
                         <td>{{ $technology->technologyCategory->name }}</td>
                         <td>
-                            <a href="{{ route('technology-edit', $technology->id) }}" class="btn btn-success">Edit</a>
+                            @if(auth()->user()->role->role_name !== 'HCM')
+                                <a href="{{ route('technology-edit', $technology->id) }}" class="btn btn-success">Edit</a>
+                            @else
+                                <button class="btn btn-success" disabled>Edit</button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

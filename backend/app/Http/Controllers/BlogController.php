@@ -36,6 +36,8 @@ class BlogController extends Controller
 
     public function deleteBlog($id)
     {
+        Article::where('user_id', $id)->delete();
+        
         $blogs = Article::findOrFail($id);
         $blogs->delete();
 
