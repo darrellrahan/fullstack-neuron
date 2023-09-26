@@ -15,7 +15,7 @@ const Directors: React.FC<Props> = ({ aboutData }) => {
   const [isExpand, setExpand] = useState<number>(0);
 
   return (
-    <div className="w-full flex md:flex-row xs:flex-col md:gap-6 xs:gap-2">
+    <div className="w-full flex lg:flex-row xs:flex-col lg:gap-6 xs:gap-2">
       {/* Director Card */}
       {aboutData.data.director_lists.map((item: any, index: number) => {
         return (
@@ -29,8 +29,8 @@ const Directors: React.FC<Props> = ({ aboutData }) => {
             <Image
               className={
                 isExpand === index
-                  ? `transition-all md:h-[25rem] xs:h-[19.75rem] md:w-[27.25rem] xs:w-full object-cover`
-                  : `transition-all md:h-[25rem] xs:h-[19.75rem] md:w-[12.5rem] xs:w-full object-cover`
+                  ? `transition-all lg:h-[25rem] xs:h-[19.75rem] lg:w-[27.25rem] xs:w-full object-cover`
+                  : `transition-all lg:h-[25rem] xs:h-[19.75rem] lg:w-[12.5rem] xs:w-full object-cover`
               }
               width={500}
               height={500}
@@ -43,8 +43,8 @@ const Directors: React.FC<Props> = ({ aboutData }) => {
               <div
                 className={
                   isExpand === index
-                    ? `transition-all flex flex-col md:gap-1 xs:gap-2`
-                    : `transition-all md:translate-y-36 xs:translate-y-0 flex flex-col md:gap-1 xs:gap-2`
+                    ? `transition-all flex flex-col lg:gap-1 xs:gap-2`
+                    : `transition-all lg:translate-y-36 xs:translate-y-0 flex flex-col lg:gap-1 xs:gap-2`
                 }
               >
                 <h5 className="text-desktop-title font-raleway font-bold">

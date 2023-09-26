@@ -14,13 +14,13 @@ interface Props {
 
 function Hero({ aboutData }: Props): JSX.Element {
   return (
-    <Section className="max-h-fit lg:pt-40 pt-10 md:h-screen h-fit relative  flex md:justify-between xs:justify-normal xs:gap-8 items-start md:flex-row xs:flex-col">
-      <div className="mt-10 z-[2]">
-        <h1 className="md:max-w-[48.625rem] mb-xs font-bold md:text-desktop-display xs:text-mobile-headline">
+    <Section className="max-h-fit lg:pt-40 pt-10 md:h-screen h-fit relative flex md:justify-between xs:justify-normal xs:gap-8 lg:items-start sm:items-center md:flex-row xs:flex-col">
+      <div className="md:mt-10 xs:mt-14 z-[2]">
+        <h1 className="md:max-w-[48.625rem] mb-xs font-bold lg:text-desktop-display md:text-desktop-headline xs:text-mobile-headline">
           {aboutData.data.hero_title}
         </h1>
 
-        <p className="md:max-w-[34.5625rem] md:text-desktop-body-large xs:text-mobile-body">
+        <p className="md:max-w-[34.5625rem] lg:text-desktop-body-large md:text-desktop-body xs:text-mobile-body">
           {aboutData.data.hero_desc}
         </p>
       </div>

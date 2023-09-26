@@ -20,7 +20,7 @@ const Plan: React.FC<Props> = ({ item, isActive, index, toggleActive }) => {
     config: { ...config.gentle, duration: 200 },
   });
   return (
-    <div className="w-full border-[0.5px] border-sys-dark-onSurface rounded md:px-6 xs:px-4 md:py-4 xs:py-2 flex flex-col transition-all duration-[200ms]">
+    <div className="w-full border-[0.5px] border-sys-dark-onSurface rounded lg:px-6 xs:px-4 lg:py-4 xs:py-2 flex flex-col transition-all duration-[200ms]">
       {/* Plan Title */}
       <div
         onClick={() => {
@@ -28,7 +28,7 @@ const Plan: React.FC<Props> = ({ item, isActive, index, toggleActive }) => {
         }}
         className="flex items-center justify-between cursor-pointer"
       >
-        <h1 className="md:text-desktop-headline xs:text-mobile-headline font-bold text-white">
+        <h1 className="lg:text-desktop-headline xs:text-mobile-headline font-bold text-white">
           {item.title}
         </h1>
 
