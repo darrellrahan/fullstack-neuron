@@ -23,14 +23,14 @@ const PortfolioSection: React.FC<Props> = ({ portfolio, portfolioData }) => {
 
   if (largeScreen) {
     return (
-      <Section className="max-h-fit relative ">
+      <Section className="max-h-fit relative mt-10">
         <PortfolioLine />
         {/* Heading */}
         <Heading
           alignCenter={true}
           darkBg={false}
           heading={portfolio.title_portfolio}
-          subheading="Successfull Projects"
+          subheading="Successful Projects"
         />
 
         {/* Portfolios */}
