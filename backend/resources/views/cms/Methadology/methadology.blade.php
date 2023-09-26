@@ -31,7 +31,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('create-methadology') }}" class="btn btn-success ml-5">Add Methadology</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('create-methadology') }}" class="btn btn-success ml-5">Add Methadology</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Methadology</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -85,8 +89,13 @@
                     <img class="product-img" src="{{ asset($methodology->flow_image) }}" alt="{{ $methodology->category_name }}">
                     <p class="product-desc">{{ ($methodology->category_title) }}</p>
                     <div class="actions">
-                        <a href="{{ route('methadology-edit', $methodology->id) }}" class="btn btn-success">Edit</a>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $methodology->id }}">Delete</button>
+                        @if(auth()->user()->role->role_name !== 'HCM')
+                            <a href="{{ route('methadology-edit', $methodology->id) }}" class="btn btn-success">Edit</a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $methodology->id }}">Delete</button>
+                        @else
+                            <button class="btn btn-success" disabled>Edit</button>
+                            <button class="btn btn-danger" disabled>Delete</button>
+                        @endif
                     </div>
                 </div>
                 <!-- Modal Konfirmasi Hapus -->

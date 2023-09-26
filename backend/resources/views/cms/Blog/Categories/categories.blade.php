@@ -30,7 +30,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('create-blog-categories') }}" class="btn btn-success ml-5">Add Blog Category</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('create-blog-categories') }}" class="btn btn-success ml-5">Add Blog Category</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Blog Category</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -58,7 +62,11 @@
                         <td>{{ $loop->index + 1 }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                            <a href="{{ route('blog-categories-edit', $category->id) }}" class="btn btn-success">Edit</a>
+                            @if(auth()->user()->role->role_name !== 'HCM')
+                                <a href="{{ route('blog-categories-edit', $category->id) }}" class="btn btn-success">Edit</a>
+                            @else
+                                <button class="btn btn-success" disabled>Edit</button>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

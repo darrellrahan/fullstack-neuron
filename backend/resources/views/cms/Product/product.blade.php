@@ -30,7 +30,11 @@
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit">Search</button>
                     </div>
-                    <a href="{{ route('product-create') }}" class="btn btn-success ml-5">Add Product</a>
+                    @if(auth()->user()->role->role_name !== 'HCM')
+                        <a href="{{ route('product-create') }}" class="btn btn-success ml-5">Add Product</a>
+                    @else
+                        <button class="btn btn-success ml-5" disabled>Add Product</button>
+                    @endif
                 </div>
             </form>
         </div>
@@ -54,8 +58,13 @@
                         </div>
 
                         <div>
-                            <a href="{{ route('product-edit', $product->id) }}" class="btn btn-success">Edit</a>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $product->id }}">Delete</button>
+                            @if(auth()->user()->role->role_name !== 'HCM')
+                                <a href="{{ route('product-edit', $product->id) }}" class="btn btn-success">Edit</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $product->id }}">Delete</button>
+                            @else
+                                <button class="btn btn-success" disabled>Edit</button>
+                                <button class="btn btn-danger" disabled>Delete</button>
+                            @endif
                         </div>
                     </div>
                 </div>
