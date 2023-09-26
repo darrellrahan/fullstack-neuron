@@ -65,9 +65,9 @@ async function page({
           <h2 className="lg:text-desktop-headline xs:text-mobile-headline font-bold">
             Our Solution
           </h2>
-          <p className="lg:text-desktop-body-large xs:text-mobile-body mt-2">
-            {portfolio.our_solution}
-          </p>
+          <div dangerouslySetInnerHTML={{__html:portfolio.our_solution}} className="lg:text-desktop-body-large xs:text-mobile-body mt-2">
+            
+          </div>
         </div>
 
         {/* Lists */}
