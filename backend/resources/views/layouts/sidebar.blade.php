@@ -50,7 +50,7 @@
             </a>
           </li>
           <li class="nav-item" id="pages">
-            <a href="#" class="nav-link">
+            <a href="{{route('pages')}}" class="nav-link">
             <i class="nav-icon fas fa-th"></i>
               <p>
                 Pages

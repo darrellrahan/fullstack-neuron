@@ -24,7 +24,7 @@ class AboutSeeder extends Seeder
         DB::table('about')->insert([
             'hero_title' => 'Transform Your Idea Into Best Product Digital Solutions',
             'hero_desc' => 'PT Neuronworks Indonesia: Your IT Solution Partner. From inception to impact, we drive business forward in the rapidly evolving tech landscape. With 100+ successful national and regional projects, including international clients like Telkomcel Timor Leste and Telin Malaysia."',
-            'hero_image' => 'http://127.0.0.1:8000/img/about/home_image.jpg',
+            'hero_image' => 'http://127.0.0.1:8000/img/about/hero_image.jpg',
             'activity_image' => 'http://127.0.0.1:8000/img/about/Neuron Activity.png',
             'vision_title' => 'Our Vision',
             'vision_subtitle' => 'Pioneering the Future of Digital Excellence',

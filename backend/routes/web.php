@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
@@ -11,7 +12,10 @@ use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\MethadologyController;
 use App\Http\Controllers\BlogCategoryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Register\RegisterController;
+use App\Models\About;
 
 /*
 |--------------------------------------------------------------------------
@@ -178,6 +182,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/career/{career_id}/add-skiill', [CareerController::class, 'addSkillEdit'])->name('career.add-skill');
     // add plus value blade edit
     Route::post('/career/{career_id}/add-plusValue', [CareerController::class, 'addPlusValueEdit'])->name('career.add-plusValue');
+
+    //! EDIT PAGES
+    Route::get('/page', [PagesController::class, 'pagesShow'])->name('pages');
+    Route::get('/page/home', [PagesController::class, 'previewHome'])->name('preview-home');
+    Route::get('/page/about', [PagesController::class, 'previewAbout'])->name('preview-about');
+    Route::put('/page/home/edit/{id}', [PagesController::class, 'editHome'])->name('edit-home');
+    Route::put('/page/about/edit/{id}', [PagesController::class, 'editAbout'])->name('edit-about');
 });
 
 // hanya untuk user dengan role superadmin
