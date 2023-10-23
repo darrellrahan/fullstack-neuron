@@ -39,9 +39,7 @@
         }
     </style>
 
-    <div class="container">
-        <div class="row">
-            <div class="card col-md-12 card-primary">
+            <div class="card col-md-11 card-primary mx-auto">
                 <h3 class="card-header">Home Page</h3>
                 <div class="card-body">
                     <div id="image-tampil">
@@ -50,12 +48,8 @@
                     <a href="{{route('preview-home')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="card col-md-12 card-success">
+            <div class="card col-md-11 card-success mx-auto">
                 <h3 class="card-header">About Page</h3>
                 <div class="card-body">
                     <div id="image-tampil">
@@ -64,12 +58,8 @@
                     <a href="{{route('preview-about')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="card col-md-12 card-danger">
+            <div class="card col-md-11 card-danger mx-auto">
                 <h3 class="card-header">Service Page</h3>
                 <div class="card-body">
                     <div id="image-tampil">
@@ -78,8 +68,6 @@
                     <a href="{{route('service-pages.index')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
-        </div>
-    </div>
 
 </div>
 
