@@ -184,11 +184,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/career/{career_id}/add-plusValue', [CareerController::class, 'addPlusValueEdit'])->name('career.add-plusValue');
 
     //! EDIT PAGES
-    Route::get('/page', [PagesController::class, 'pagesShow'])->name('pages');
+    Route::get('/pages', [PagesController::class, 'pagesShow'])->name('pages');
     Route::get('/page/home', [PagesController::class, 'previewHome'])->name('preview-home');
     Route::get('/page/about', [PagesController::class, 'previewAbout'])->name('preview-about');
+    Route::get('/page/service', [PagesController::class, 'previewService'])->name('service-pages.index');
     Route::put('/page/home/edit/{id}', [PagesController::class, 'editHome'])->name('edit-home');
     Route::put('/page/about/edit/{id}', [PagesController::class, 'editAbout'])->name('edit-about');
+    Route::put('/page/service/edit/{id}', [PagesController::class, 'editService'])->name('page-settings.update');
 });
 
 // hanya untuk user dengan role superadmin

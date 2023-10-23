@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Home;
 use App\Models\About;
+use App\Models\ServicePages;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
@@ -17,6 +18,12 @@ class PagesController extends Controller
     public function previewHome(){
         $dataHome = Home::findOrFail(1);
         return view('cms.Pages.homeedit',compact('dataHome'));
+    }
+
+    public function previewService()
+    {
+        $pageSetting = ServicePages::findOrFail(1);
+        return view('cms.Pages.serviceedit', compact('pageSetting'));
     }
 
     public function previewAbout(){
@@ -131,5 +138,26 @@ class PagesController extends Controller
         } catch (\Throwable $th) {
             return dd($th);
         }
+    }
+
+    public function editService(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'hero_title' => 'required',
+            'hero_desc' => 'required',
+            'service_title' => 'required',
+            'service_subtitle' => 'required',
+            'technology_title' => 'required',
+            'technology_desc' => 'required',
+            'methodology_title' => 'required',
+            'methodology_subtitle' => 'required',
+            'cta_contact_id' => 'required',
+        ]);
+
+        $pageSetting = ServicePages::find($id);
+
+        $pageSetting->update($validatedData);
+
+        return redirect()->route('pages');
     }
 }
