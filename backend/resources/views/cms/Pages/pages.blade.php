@@ -45,7 +45,7 @@
                     <div id="image-tampil">
                         <img id="imageDB" src="{{asset('img/pages/home.jpg')}}" alt="...">
                     </div>
-                    <a href="{{route('preview-home')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
+                    <a href="{{route('preview-home')}}" id="homePage" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
 
@@ -55,7 +55,7 @@
                     <div id="image-tampil">
                         <img id="imageDB" src="{{asset('img/pages/about.jpg')}}" alt="...">
                     </div>
-                    <a href="{{route('preview-about')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
+                    <a href="{{route('preview-about')}}" id="aboutPage" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                     <div id="image-tampil">
                         <img id="imageDB" src="{{asset('img/pages/service.png')}}" alt="...">
                     </div>
-                    <a href="{{route('service-pages.index')}}" class="btn btn-primary mb-8 col-md-12">EDIT</a>
+                    <a href="{{route('service-pages.index')}}" id="servicePage" class="btn btn-primary mb-8 col-md-12">EDIT</a>
                 </div>
             </div>
 
