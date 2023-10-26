@@ -4,8 +4,8 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-  <script>
+  {{-- <script>
     setTimeout(function() {
         document.getElementById('flash-message').style.display = 'none';
     }, 5000); // Menghilangkan pesan flash setelah 5 detik (5000 milidetik)
-  </script>
+  </script> --}}
