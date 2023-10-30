@@ -191,6 +191,14 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/page/home/edit/{id}', [PagesController::class, 'editHome'])->name('edit-home');
     Route::put('/page/about/edit/{id}', [PagesController::class, 'editAbout'])->name('edit-about');
     Route::put('/page/service/edit/{id}', [PagesController::class, 'editService'])->name('page-settings.update');
+
+    //! To do List
+    Route::get('/todolist', [ToDoListController::class, 'getToDoList'])->name('todolist.index');
+    Route::get('/todolist/create', [ToDoListController::class, 'addToDoList'])->name('adminpanel.todolist.create');
+    Route::post('/todolist/store', [ToDoListController::class, 'storeToDoList'])->name('adminpanel.todolist.store');
+    Route::put('/todolist/{todolist}', [ToDoListController::class, 'updateToDoList'])->name('adminpanel.todolist.update');
+    Route::get('/todolist/{todolist}/edit', [ToDoListController::class, 'editToDoList'])->name('adminpanel.todolist.edit');
+    Route::delete('/todolist/{todolist}', [ToDoListController::class , 'deleteToDoList'])->name('adminpanel.todolist.destroy');
 });
 
 // hanya untuk user dengan role superadmin

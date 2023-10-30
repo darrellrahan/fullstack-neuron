@@ -57,23 +57,161 @@
                     <textarea class="form-control" id="responsibilities" name="responsibilities" rows="5" required>{{ $career->responsibilities }}</textarea>
                 </div>
 
+                <div id="collapse{{ $career->id }}" class="collapse" aria-labelledby="heading{{ $career->id }}" data-parent="#careerAccordion">
+                    <div class="card-body">
+                        <p class="career-desc">{{ $career->desc }}</p>
+                        <h5 class="text-bold">Responsibility</h5>
+                        <p class="career-respon">{{ $career->responsibilities }}</p>
+                        <h5 class="text-bold">Skill</h5>
+                        <ul>
+                            @foreach ($career->skillRequirements as $skill)
+                            <li class="pb-3">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        {{ $skill->name }}
+                                    </div>
+                                    <div class="d-flex">
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editSkillModal{{ $skill->id }}">Edit</button>
+                                        <form method="POST" action="{{ route('delete-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <!-- Modal edit skill -->
+                            @endforeach
+                        </ul>
+                        <!-- Akhir modal edit skill -->
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editSkillModal{{ $skill->id }}" tabindex="-1" aria-labelledby="editSkillModalLabel{{ $skill->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editSkillModalLabel">Edit Skill</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="POST" action="{{ route('edit-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="editSkillName">Skill Name</label>
+                                        <input type="text" class="form-control" id="editSkillName" name="name" value="{{ $skill->name }}">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="text-bold">Qualification</h5>
+                <div class="d-flex" style="justify-content: space-between;">
+                    <div>
+                        <h6 class="text-bold">Gender</h6>
+                        <p>{{ $career->jobQualification->gender }}</p>
+                    </div>
+                    <div>
+                        <h6 class="text-bold">Domicile</h6>
+                        <p>{{ $career->jobQualification->domicile }}</p>
+                    </div>
+                    <div>
+                        <h6 class="text-bold">Education</h6>
+                        <p>{{ $career->jobQualification->education }}</p>
+                    </div>
+                    <div>
+                        <h6 class="text-bold">Major</h6>
+                        <p>{{ $career->jobQualification->major }}</p>
+                    </div>
+                    <div>
+                        <h6 class="text-bold">Other</h6>
+                        <p>{{ $career->jobQualification->other }}</p>
+                    </div>
+                </div>
+                <h5 class="text-bold">Plus Value</h5>
+                <ul>
+                    @foreach ($career->jobPlusValues as $plusValue)
+                    <li class="pb-3">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                {{ $plusValue->name }}
+                            </div>
+                            <div class="d-flex">
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}">Edit</button>
+                                <form method="POST" action="{{ route('delete-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- Modal edit plus value -->
+                <div class="modal fade" id="editPlusValueModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="editPlusValueModalLabel{{ $plusValue->id }}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editPlusValueModalLabel">Edit Plus Value</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form method="POST" action="{{ route('edit-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
+                                @csrf
+                                @method('PUT')
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for "editPlusValueName">Name</label>
+                                        <input type="text" class="form-control" id="editPlusValueName" name="name" value="{{ $plusValue->name }}">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Akhir modal edit plus value -->
+                @endforeach
+                </ul>
+
+
+
                 <div class="form-group">
                     <div class="d-flex">
                         <label for="skillRequirements">Skill Requirement</label>
-                        <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#addSkillModal">Add Skill</button>
+                        <div class="ml-auto">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSkillModal">Add Skill</button>
+                        </div>
                     </div>
-                    
+
                     <ul>
                         @foreach ($career->skillRequirements as $skill)
-                            <li>{{ $skill->name }}</li>
+                        <li>{{ $skill->name }}</li>
                         @endforeach
                     </ul>
                 </div>
-                
+
                 <div class="form-group">
                     <div class="d-flex">
                         <label for="jobPlusValues">Plus Value</label>
                         <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#addPlusValueModal">Add Plus Value</button>
+                        <a href="{{ $career->link }}" target="_blank" class="btn btn-danger text-white float-right">
+                            Apply <i class="fas fa-arrow-right ml-4"></i>
+                        </a>
                     </div>
 
                     <ul>
