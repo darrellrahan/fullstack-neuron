@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\LoginRecord;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use App\Models\Job;
+use App\Models\Article;
+use App\Models\Portofolio;
+use App\Models\Product;
 
 class AuthController extends Controller
 {
@@ -24,7 +29,11 @@ class AuthController extends Controller
 
             // Buat atau perbarui token personal access untuk pengguna yang berhasil login
             $token = $user->createToken('auth_token')->plainTextToken;
-
+            LoginRecord::create([
+                'action'=>'Log In',
+                'user_id'=>$user['id'],
+                'role_id'=>$user['role_id']
+            ]);
             return redirect('/adminpanel')->with('auth_token', $token)->with('success', 'Welcome ' . $user->firstname . ' ' . $user->lastname);
         }
         return redirect('/login')->with('error', 'Invalid email or password.');
@@ -32,15 +41,22 @@ class AuthController extends Controller
 
     public function logout()
     {
+        // Mengambil data user untuk dimasukkan ke login record
+        $user = Auth::user();
         // Revoke (mencabut) semua token akses pribadi yang dimiliki pengguna saat ini
         Auth::user()->tokens()->delete();
 
         // Logout pengguna
         Auth::logout();
-
+        LoginRecord::create([
+            'action'=>'Log Out',
+            'user_id'=>$user['id'],
+            'role_id'=>$user['role_id']
+        ]);
         // Set pesan flash
         return redirect('/login')->with('success', 'You have successfully logged out.');
     }
+
     public function refreshToken(Request $request)
     {
         $user = Auth::user();
@@ -50,7 +66,7 @@ class AuthController extends Controller
 
         // Buat token akses baru
         $token = $user->createToken('auth_token')->plainTextToken;
-        
+
         return redirect('/adminpanel')->with('auth_token', $token);
     }
 
@@ -59,10 +75,18 @@ class AuthController extends Controller
         // Periksa apakah token masih berlaku (belum kedaluwarsa)
         $user = Auth::user();
         $tokenIsValid = $user->tokens->isNotEmpty();
-
+        $jobData =  Job::all()->count();
+        $articleData = Article::all()->count();
+        $portofolioData = Portofolio::all()->count();
+        $productData = Product::all()->count();
+        $loginRecords = LoginRecord::query()
+                ->with('user','role')
+                ->paginate(10);
+        $allData = array('jobData','articleData','portofolioData','productData','loginRecords');
+        return view('pages.dashboard',compact($allData));
         if ($tokenIsValid) {
             // Token masih berlaku, beri akses ke halaman adminpanel
-            return view('pages.dashboard');
+            return view('pages.dashboard', compact(['jobData', 'articleData', 'portofolioData', '$productData']));
         }
 
         // Token telah kedaluwarsa, arahkan pengguna untuk memperbarui token

@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
+    public function login_records()
+    {
+        return $this->hasMany(LoginRecord::class);
+    }
 }
