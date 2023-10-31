@@ -34,7 +34,7 @@ class HomeResource extends JsonResource
                 'id' => $this->neuron_program_id,
                 'title' => optional($this->neuronProgram)->title,
                 'desc' => optional($this->neuronProgram)->desc,
-                'ytEmbed' => optional($this->neuronProgram)->image,
+                'ytEmbed' => optional($this->neuronProgram)->video,
                 'tagline' => optional($this->neuronProgram)->tagline,
             ],
             'service' => [
