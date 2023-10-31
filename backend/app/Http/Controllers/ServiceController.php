@@ -39,7 +39,7 @@ class ServiceController extends Controller
             ->join('services', 'service_technologies.services_id', '=', 'services.id')
             ->get();
 
-            
+
         return view('cms.Service.service', compact('services'));
     }
 
@@ -209,7 +209,7 @@ class ServiceController extends Controller
     public function addKeyFeatureEdit(Request $request, $services_id)
     {
         // Validasi data inputan
-        $this->validate($request, [
+    $this->validate($request, [
             'keyFeature_name' => 'required|string|max:255',
         ]);
 
@@ -222,7 +222,7 @@ class ServiceController extends Controller
 
         // simpan key feature ke dalam service
         $service->serviceKeys()->save($serviceKey);
-        
+
         return redirect()->route('service-edit', $service->id)->with('success', 'Key Feature has been added successfully.');
     }
 
@@ -278,14 +278,14 @@ class ServiceController extends Controller
     {
         {
             $services = Service::all();
-    
+
             if ($services->count() === 0) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Service is not found',
                 ], 404);
             }
-    
+
             return ServiceResource::collection($services);
         }
     }
