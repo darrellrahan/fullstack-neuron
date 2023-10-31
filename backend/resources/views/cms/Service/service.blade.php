@@ -68,7 +68,7 @@
             </style>
             @foreach($services as $service)
                 <div class="service-card">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center m-4">
                         <div>
                             <h4 class="service-name text-bold">{{ $service->name }}</h4>
                             <p class="service-desc">{{ $service->desc }}</p>

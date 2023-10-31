@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(LoginRecord::class);
     }
+
+    public function edit_records()
+    {
+        return $this->hasMany(EditRecord::class);
+    }
 }

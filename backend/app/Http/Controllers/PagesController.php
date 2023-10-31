@@ -38,15 +38,9 @@ class PagesController extends Controller
 
     public function editHome(Request $req, $id){
         $reqHome = $req->validate([
-            'hero_title1' => 'required|string|max:255',
-            'hero_title2' => 'required|string|max:255',
-            'hero_title3' => 'required|string|max:255',
-            'hero_desc' => 'required|string|max:255',
-            'about_project' => 'required|string|max:20',
-            'about_experience' => 'required|string|max:20',
+            'hero_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'about_desc' => 'required|string|max:255',
             'about_title' => 'required|string|max:255',
-            'about_ilustration' => '', //!NEED VALIDATE
             'title_service'=> 'required|string|max:255',
             'title_project'=> 'required|string|max:255',
             'title_product'=> 'required|string|max:255',

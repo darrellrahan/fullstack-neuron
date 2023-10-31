@@ -16,7 +16,7 @@
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
-    
+
     <div id="success-message" class="mt-3">
         @if(session('success'))
             <div class="alert alert-success">
@@ -51,7 +51,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        
+
                         <div class="form-group">
                             <div class="d-flex">
                                 <label for="serviceKey">Key Feature</label>
@@ -60,7 +60,15 @@
 
                             <ul>
                                 @foreach ($service->serviceKeys as $servicekey)
-                                <li>{{ $servicekey->name }}</li>
+                                <div class="mb-1">
+                                    <li>
+                                    {{ $servicekey->name }}
+                                    <div class="btn-group">
+                                        <a href="" class="far fa-edit btn-sm btn-outline-warning"></a>
+                                        <a href="" class="far fa-trash-alt btn-sm btn-outline-danger"></a>
+                                    </div>
+                                </li>
+                                    </div>
                                 @endforeach
                             </ul>
                         </div>

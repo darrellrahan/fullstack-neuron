@@ -15,6 +15,7 @@ class EditTbHeroTitleList extends Migration
     {
         Schema::table('hero_title_list', function(Blueprint $table) {
             $table->renameColumn('title','hero_title');
+            $table->text('hero_desc');
         });
     }
 
@@ -27,6 +28,7 @@ class EditTbHeroTitleList extends Migration
     {
         Schema::table('hero_title_list', function(Blueprint $table) {
             $table->renameColumn('hero_title','title');
+            $table->dropColumn('hero_desc');
         });
     }
 }
