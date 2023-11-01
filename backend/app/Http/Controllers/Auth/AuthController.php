@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use App\Models\ToDoList;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\LoginRecord;
@@ -14,6 +15,7 @@ use App\Models\Job;
 use App\Models\Article;
 use App\Models\Portofolio;
 use App\Models\Product;
+
 
 class AuthController extends Controller
 {
@@ -75,18 +77,20 @@ class AuthController extends Controller
         // Periksa apakah token masih berlaku (belum kedaluwarsa)
         $user = Auth::user();
         $tokenIsValid = $user->tokens->isNotEmpty();
-        $jobData =  Job::all()->count();
-        $articleData = Article::all()->count();
-        $portofolioData = Portofolio::all()->count();
-        $productData = Product::all()->count();
-        $loginRecords = LoginRecord::query()
-                ->with('user','role')
-                ->paginate(10);
-        $allData = array('jobData','articleData','portofolioData','productData','loginRecords');
-        return view('pages.dashboard',compact($allData));
         if ($tokenIsValid) {
             // Token masih berlaku, beri akses ke halaman adminpanel
-            return view('pages.dashboard', compact(['jobData', 'articleData', 'portofolioData', '$productData']));
+            // Mengambil data untuk halaman adminpanel
+            $jobData =  Job::all()->count();
+            $articleData = Article::all()->count();
+            $portofolioData = Portofolio::all()->count();
+            $productData = Product::all()->count();
+            $todos = ToDoList::all();
+            // Membuat login record
+            $loginRecords = LoginRecord::query()
+                    ->with('user','role')
+                    ->paginate(10);
+            $allData = array('jobData','articleData','portofolioData','productData','loginRecords', 'todos');
+            return view('pages.dashboard',compact($allData));
         }
 
         // Token telah kedaluwarsa, arahkan pengguna untuk memperbarui token

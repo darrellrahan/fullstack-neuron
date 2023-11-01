@@ -205,20 +205,20 @@
                     </ul>
                 </div>
 
-                <div class="form-group">
-                    <div class="d-flex">
-                        <label for="jobPlusValues">Plus Value</label>
-                        <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#addPlusValueModal">Add Plus Value</button>
-                        <a href="{{ $career->link }}" target="_blank" class="btn btn-danger text-white float-right">
-                            Apply <i class="fas fa-arrow-right ml-4"></i>
-                        </a>
-                    </div>
+                <div class="form-group d-flex justify-content-between align-items-center">
+                    <label for="jobPlusValues">Plus Value</label>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPlusValueModal">Add Plus Value</button>
+                    <a href="{{ $career->link }}" target="_blank" class="btn btn-danger text-white">
+                        Apply <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
 
-                    <ul>
-                        @foreach ($career->jobPlusValues as $plusValue)
-                            <li>{{ $plusValue->name }}</li>
-                        @endforeach
-                    </ul>
+                <ul>
+                    @foreach ($career->jobPlusValues as $plusValue)
+                    <li>{{ $plusValue->name }}</li>
+                    @endforeach
+                </ul>
+
                 </div>
 
                 <div class="form-group">

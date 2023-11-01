@@ -12,6 +12,7 @@ use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\TechnologyController;
 use App\Http\Controllers\MethadologyController;
 use App\Http\Controllers\BlogCategoryController;
+use App\Http\Controllers\ToDoListController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Register\RegisterController;
@@ -193,8 +194,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/page/service/edit/{id}', [PagesController::class, 'editService'])->name('page-settings.update');
 
     //! TODOLIST
-    Route::get('adminpanel/todolist', [ToDoListController::class, 'getToDoList'])->name('todolist.index');
-    Route::get('adminpanel/todolist/create', [ToDoListController::class, 'addToDoList'])->name('adminpanel.todolist.create');
+    Route::get('/adminpanel/todolist', [ToDoListController::class, 'getToDoList'])->name('todolist.index');
+    Route::get('/adminpanel/todolist/create', [ToDoListController::class, 'addToDoList'])->name('adminpanel.todolist.create');
     Route::post('/adminpanel/todolist/store', [ToDoListController::class, 'storeToDoList'])->name('adminpanel.todolist.store');
     Route::put('/adminpanel/todolist/{todolist}', [ToDoListController::class, 'updateToDoList'])->name('adminpanel.todolist.update');
     Route::get('/adminpanel/todolist/{todolist}/edit', [ToDoListController::class, 'editToDoList'])->name('adminpanel.todolist.edit');
