@@ -82,7 +82,6 @@
                                 @endif
                             </div>
                         </div>
-                        <img class="service-img" src="{{ asset($service->image) }}" alt="{{ $service->name }}">
                     </div>
                     <!-- Modal Konfirmasi Hapus -->
                     <div class="modal fade" id="confirmDeleteModal{{ $service->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">

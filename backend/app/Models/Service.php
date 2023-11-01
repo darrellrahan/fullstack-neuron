@@ -12,23 +12,10 @@ class Service extends Model
 
     protected $fillable = [
         'name',
-        'desc',
-        'image',
-        'isTopService',
+        'desc'
     ];
 
-    public function serviceTechnology()
-    {
-        return $this->hasMany(ServiceTechnology::class, 'services_id', 'id');
-    }
-
-    public function serviceKeys()
-    {
-        return $this->hasMany(ServiceKey::class, 'services_id', 'id');
-    }
-
-    public function technologies()
-    {
-        return $this->belongsToMany(Technology::class, 'service_technologies', 'services_id', 'technologies_id');
+    public function portofolio(){
+        return $this->hasMany(Portofolio::class);
     }
 }

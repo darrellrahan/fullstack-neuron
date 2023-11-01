@@ -34,6 +34,7 @@ class PortofolioSeeder extends Seeder
                 'successProject' => 'true',
                 'created_at' => '2019-10-13',
                 'updated_at' => Carbon::now(),
+                'service_id'=>1
             ],
             [
                 'name' => 'My Telkom',
@@ -47,6 +48,7 @@ class PortofolioSeeder extends Seeder
                 'successProject' => 'true',
                 'created_at' => '2020-11-25',
                 'updated_at' => Carbon::now(),
+                'service_id'=>2
             ],
             [
                 'name' => 'My Indihome',
@@ -60,6 +62,7 @@ class PortofolioSeeder extends Seeder
                 'successProject' => 'true',
                 'created_at' => '2020-11-25',
                 'updated_at' => Carbon::now(),
+                'service_id'=>3
             ],
         ]);
     }
