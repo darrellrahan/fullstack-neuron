@@ -15,6 +15,7 @@ class AddColumnPortofolios extends Migration
     {
         Schema::table('portofolios', function(Blueprint $table) {
             $table->string('service_id')->default(1);
+            $table->dropColumn('category');
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnPortofolios extends Migration
     {
         Schema::table('portofolios', function(Blueprint $table) {
             $table->dropColumn('service_id');
+            $table->enum('category', ['Web App', 'Mobile App', 'Workflow Management System', 'System Integrator', 'Business Intelligence', 'CRM App']);
         });
 
     }
