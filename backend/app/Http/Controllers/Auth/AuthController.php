@@ -15,6 +15,13 @@ use App\Models\Job;
 use App\Models\Article;
 use App\Models\Portofolio;
 use App\Models\Product;
+use Carbon\Carbon;
+use Google\Analytics\Data\V1beta\Client\BetaAnalyticsDataClient as BetaAnalyticsDataClient;
+use Google\Analytics\Data\V1beta\DateRange as DateRange;
+use Google\Analytics\Data\V1beta\Dimension as Dimension;
+use Google\Analytics\Data\V1beta\Metric as Metric;
+use Google\Analytics\Data\V1beta\RunReportRequest as RunReportRequest;
+
 
 
 class AuthController extends Controller
@@ -78,6 +85,27 @@ class AuthController extends Controller
         $user = Auth::user();
         $tokenIsValid = $user->tokens->isNotEmpty();
         if ($tokenIsValid) {
+            // // Load the credentials from the JSON key file you downloaded.
+            // $client = new Client();
+            // $client->setAuthConfig(base_path('app/Analytics/website-neuron-75e174c55562.json'));
+            $analyticsClient = new BetaAnalyticsDataClient([
+                'credentials' => base_path('/app/Analytics/'.env('ANALYTICS_CREDENTIALS'))
+            ]);
+            $property_id = env('ANALYTICS_PROPERTY_ID');
+
+            // Make an API call.
+            $analyticsConfig = (new RunReportRequest())
+                ->setProperty('properties/' . $property_id)
+                ->setDateRanges([
+                    new DateRange([
+                        'start_date' => '2023-01-01',
+                        'end_date' => 'today',
+                    ]),
+                ]);
+
+            // Get Data Analytics
+            $analyticsData = $analyticsClient->runReport($analyticsConfig);
+            return dd($analyticsData);
             // Token masih berlaku, beri akses ke halaman adminpanel
             // Mengambil data untuk halaman adminpanel
             $jobData =  Job::all()->count();
