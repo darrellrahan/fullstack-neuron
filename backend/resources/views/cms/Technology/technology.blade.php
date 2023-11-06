@@ -71,11 +71,38 @@
                         <td>
                             @if(auth()->user()->role->role_name !== 'HCM')
                                 <a href="{{ route('technology-edit', $technology->id) }}" class="btn btn-success">Edit</a>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#confirmDeleteModal{{ $technology->id }}">Delete</button>
                             @else
                                 <button class="btn btn-success" disabled>Edit</button>
+                                <button class="btn btn-danger" disabled>Delete</button>
                             @endif
                         </td>
                     </tr>
+                    <!-- Modal Konfirmasi Hapus -->
+                    <div class="modal fade" id="confirmDeleteModal{{ $technology->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete <strong>{{ $technology->name }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <form id="delete-form-{{ $technology->id }}" action="{{ route('delete-technology', $technology->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Yes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal Konfirmasi Hapus End -->
                     @endforeach
                 </tbody>
             </table>

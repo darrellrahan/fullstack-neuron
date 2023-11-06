@@ -137,32 +137,30 @@
                         <p>{{ $career->jobQualification->other }}</p>
                     </div>
                 </div>
-                <h5 class="text-bold">Plus Value</h5>
-                <ul>
+                <div class="d-flex" style="justify-content: space-between;">
+                <label for="plusValue">Plus Value</label>
+            </div>
+            <ul>
                     @foreach ($career->jobPlusValues as $plusValue)
                     <li>
-
-
                         <div>
                         </div>
-                        <div class="d-flex">
+                            <div class="d-flex">
                                 {{ $plusValue->name }}
                                 <a role="button" type="button" class="far fa-edit btn-sm btn-outline-warning" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}"></a>
                                 <a role="button" type="submit" class="far fa-trash-alt btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal{{$plusValue->id}}"></a>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                            </div>
                             </div>
                         </li>
 
                         <!-- Modal edit plus value -->
-                <div class="modal fade" id="editPlusValueModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="editPlusValueModalLabel{{ $plusValue->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editPlusValueModalLabel">Edit Plus Value</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                        <div class="modal fade" id="editPlusValueModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="editPlusValueModalLabel{{ $plusValue->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editPlusValueModalLabel">Edit Plus Value</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                             </div>
                             <form method="POST" action="{{ route('edit-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
                                 @csrf
@@ -209,39 +207,22 @@
                 </div>
                 <!-- Modal Konfirmasi Hapus End -->
                 @endforeach
-                </ul>
+                <a type="button" class="fas fa-plus btn-sm btn-outline-primary" data-toggle="modal" data-target="#addPlusValueModal">' Add Plus Value'</a>
+            </ul>
 
 
 
                 <div class="form-group">
                     <div class="d-flex">
                         <label for="skillRequirements">Skill Requirement</label>
-                        <div class="ml-auto">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSkillModal">Add Skill</button>
-                        </div>
                     </div>
 
                     <ul>
                         @foreach ($career->skillRequirements as $skill)
                         <li>{{ $skill->name }}</li>
                         @endforeach
+                        <a type="button" class="fas fa-plus btn-sm btn-outline-primary" data-toggle="modal" data-target="#addSkillModal">' Add Skill'</a>
                     </ul>
-                </div>
-
-                <div class="form-group d-flex justify-content-between align-items-center">
-                    <label for="jobPlusValues">Plus Value</label>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPlusValueModal">Add Plus Value</button>
-                    <a href="{{ $career->link }}" target="_blank" class="btn btn-danger text-white">
-                        Apply <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-
-                <ul>
-                    @foreach ($career->jobPlusValues as $plusValue)
-                    <li>{{ $plusValue->name }}</li>
-                    @endforeach
-                </ul>
-
                 </div>
 
                 <div class="form-group">
