@@ -28,7 +28,7 @@ class TechnologyController extends Controller
         return view('cms.Technology.technology', compact('technologies', 'categories'));
     }
 
-    public function addTechnology(Request $request)
+    public function store(Request $request)
     {
         // Validasi data yang diterima dari formulir
         $request->validate([

@@ -2,58 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  @apply m-0 p-0 box-border;
-}
-
-[class*='text-desktop-display'] {
-  @apply font-raleway;
-}
-
-[class*='text-mobile-display'] {
-  @apply font-raleway;
-}
-
-[class*='text-desktop-headline'] {
-  @apply font-raleway;
-}
-
-[class*='text-mobile-headline'] {
-  @apply font-raleway;
-}
-
-[class*='text-desktop-title'] {
-  @apply font-raleway;
-}
-
-[class*='text-mobile-title'] {
-  @apply font-raleway;
-}
-
-[class*='text-desktop-body'] {
-  @apply font-inter;
-}
-
-[class*='text-mobile-body'] {
-  @apply font-inter;
-}
-
-[class*='text-subtitle'] {
-  @apply font-inter;
-}
-
-[class*='text-hyperlink'] {
-  @apply font-inter underline text-core-primary;
-}
-
-[class*='text-desktop-label'] {
-  @apply font-inter;
-}
-
-[class*='text-mobile-label'] {
-  @apply font-inter;
-}
-
-[class*='text-button'] {
-  @apply font-raleway;
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }

@@ -241,7 +241,7 @@
                                                                     @endif
                                                                     {{ $portfolioTech->technology->name }}
                                                                 </div>
-                                                                <form method="POST" action="{{ route('delete-technology', ['portofolio_id' => $portofolio->id, 'technology_id' => $portfolioTech->technology->id]) }}">
+                                                                <form method="POST" action="{{ route('delete-technology-portofolio', ['portofolio_id' => $portofolio->id, 'technology_id' => $portfolioTech->technology->id]) }}">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     @if(auth()->user()->role->role_name !== 'HCM')

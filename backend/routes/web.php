@@ -67,7 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('portofolio/{id}/edit', [PortofolioController::class, 'edit'])->name('portofolio-edit');
     Route::put('portofolio/{id}/update', [PortofolioController::class, 'update'])->name('portofolio-update');
     // delete technology in portofolio
-    Route::delete('/delete-technology/{portofolio_id}/{technology_id}', [PortofolioController::class, 'deleteTechnology'])->name('delete-technology');
+    Route::delete('/delete-technology/{portofolio_id}/{technology_id}', [PortofolioController::class, 'deleteTechnology'])->name('delete-technology-portofolio');
     // add technology already exist blade edit
     Route::post('/portofolio/{id}/add-technology', [PortofolioController::class, 'addTechnology'])->name('portofolio-add-technology');
     // delete deliverable in portofolio

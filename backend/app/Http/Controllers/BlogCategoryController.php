@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ArticleCategory;
+use Illuminate\Support\Facades\Auth;
 
 class BlogCategoryController extends Controller
 {
@@ -25,6 +26,7 @@ class BlogCategoryController extends Controller
         if ($category) {
             // Delete the category
             $category->delete();
+            deleteEdRec('Blog Category', Auth::id(), Auth::user()->role_id);
             return redirect()->route('blog-categories')->with('success', 'Category deleted successfully');
         } else {
             return redirect()->route('blog-categories')->with('error', 'Category not found');
@@ -49,7 +51,7 @@ class BlogCategoryController extends Controller
         ]);
 
         $category->save();
-
+        addEdRec('Blog Category', Auth::id(), Auth::user()->role_id);
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
         return redirect()->route('blog-categories')->with('success', 'Blog Categories added successfully.');
     }
@@ -73,7 +75,7 @@ class BlogCategoryController extends Controller
         $category->name = $request->input('name');
 
         $category->save();
-
+        editEdRec('Blog Category', Auth::id(), Auth::user()->role_id);
         // Redirect ke halaman portofolio dengan pesan sukses
         return redirect()->route('blog-categories')->with('success', 'Blog category updated successfully.');
     }

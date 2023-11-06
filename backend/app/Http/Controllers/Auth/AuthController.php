@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use App\Models\ToDoList;
 use Illuminate\Http\Request;
+use App\Models\EditRecord;
 use App\Http\Controllers\Controller;
 use App\Models\LoginRecord;
 use Illuminate\Support\Facades\Password;
@@ -142,11 +143,13 @@ class AuthController extends Controller
             $portofolioData = Portofolio::all()->count();
             $productData = Product::all()->count();
             $todos = ToDoList::all();
+            $editRecord = EditRecord::with(['user', 'role'])->get();
+
             // Membuat login record
             $loginRecords = LoginRecord::query()
                     ->with('user','role')
                     ->paginate(10);
-            $allData = array('jobData','articleData','portofolioData','productData','loginRecords', 'todos', 'activeUsers');
+            $allData = array('jobData','articleData','portofolioData','productData','loginRecords', 'todos', 'activeUsers','editRecord');
             return view('pages.dashboard',compact($allData));
         }
 
