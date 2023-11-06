@@ -15,7 +15,7 @@ use App\Models\Job;
 use App\Models\Article;
 use App\Models\Portofolio;
 use App\Models\Product;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Google\Analytics\Data\V1beta\Client\BetaAnalyticsDataClient as BetaAnalyticsDataClient;
 use Google\Analytics\Data\V1beta\DateRange as DateRange;
 use Google\Analytics\Data\V1beta\Dimension as Dimension;
@@ -84,30 +84,56 @@ class AuthController extends Controller
         // Periksa apakah token masih berlaku (belum kedaluwarsa)
         $user = Auth::user();
         $tokenIsValid = $user->tokens->isNotEmpty();
-        if ($tokenIsValid) {
-            // // Load the credentials from the JSON key file you downloaded.
-            // $client = new Client();
-            // $client->setAuthConfig(base_path('app/Analytics/website-neuron-75e174c55562.json'));
-            $analyticsClient = new BetaAnalyticsDataClient([
-                'credentials' => base_path('/app/Analytics/'.env('ANALYTICS_CREDENTIALS'))
-            ]);
-            $property_id = env('ANALYTICS_PROPERTY_ID');
 
-            // Make an API call.
+        if ($tokenIsValid) {
+            // Token masih berlaku, beri akses ke halaman adminpanel
+            // Mengambil data untuk halaman adminpanel
+
+            // Mangmbil Google Analytics Credentials
+            $GACredentials = base_path('/app/Analytics/'.env('ANALYTICS_CREDENTIALS'));
+
+            // Credentials Authorization
+            $analyticsClient = new BetaAnalyticsDataClient([
+                'credentials' => $GACredentials
+            ]);
+
+            // Configurasi Permintaan yang ingin diminta
             $analyticsConfig = (new RunReportRequest())
-                ->setProperty('properties/' . $property_id)
+                ->setProperty('properties/' . env('ANALYTICS_PROPERTY_ID'))
+                // Jarak Waktu Yang diambil
                 ->setDateRanges([
                     new DateRange([
                         'start_date' => '2023-01-01',
                         'end_date' => 'today',
                     ]),
+                ])
+                // Detail Tambahan
+                ->setDimensions([new Dimension([
+                        'name' => 'city',
+                    ]),
+                ])
+                // Mengambil Data
+                ->setMetrics([new Metric([
+                        'name' => 'activeUsers',
+                    ])
                 ]);
 
-            // Get Data Analytics
+            // Mengirimkan request ke Google Analytic Properties
             $analyticsData = $analyticsClient->runReport($analyticsConfig);
-            return dd($analyticsData);
-            // Token masih berlaku, beri akses ke halaman adminpanel
-            // Mengambil data untuk halaman adminpanel
+
+            if (!empty($analyticsData->getRows())) {
+                // Akses baris pertama (karena Anda hanya memiliki satu baris)
+                $firstRow = $analyticsData->getRows()[0];
+
+                // Akses metrik dalam baris pertama
+                $metrics = $firstRow->getMetricValues();
+
+                // Mengambil banyak visitor
+                $activeUsers = $metrics[0]->getValue();
+            } else {
+                $activeUsers = null;
+            }
+
             $jobData =  Job::all()->count();
             $articleData = Article::all()->count();
             $portofolioData = Portofolio::all()->count();
@@ -117,7 +143,7 @@ class AuthController extends Controller
             $loginRecords = LoginRecord::query()
                     ->with('user','role')
                     ->paginate(10);
-            $allData = array('jobData','articleData','portofolioData','productData','loginRecords', 'todos');
+            $allData = array('jobData','articleData','portofolioData','productData','loginRecords', 'todos', 'activeUsers');
             return view('pages.dashboard',compact($allData));
         }
 

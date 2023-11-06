@@ -27,16 +27,30 @@
       <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
-          <div class="col-lg-3 col-6">
+
+            {{-- VISITOR --}}
+            <div class="col-lg-12 col-6 text-center">
             <!-- small box -->
             <div class="small-box bg-info">
+              <div class="inner p-4">
+                <h1 class="font-weight-bold">{{$activeUsers}}</h1>
+              </div>
+              <div class="icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <div class="card-footer bg-light border-success">Visitors</div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-secondary">
               <div class="inner">
                 <h3>{{$jobData}}</h3>
-
                 <p>Careers</p>
               </div>
               <div class="icon">
-                <i class="ion ion-bag"></i>
+                <i class="ion ion-person-add"></i>
               </div>
               <a href="{{route('show-career')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -51,7 +65,7 @@
                 <p>Articles</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+                <i class="fas fa-stream"></i>
               </div>
               <a href="{{route('show-blog')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -66,7 +80,7 @@
                 <p>Portofolio</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="fas fa-file-alt"></i>
               </div>
               <a href="{{route('show-portofolio')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -81,7 +95,7 @@
                 <p>Products</p>
               </div>
               <div class="icon">
-                <i class="ion ion-pie-graph"></i>
+                <i class="fas fa-folder-open"></i>
               </div>
               <a href="{{route('show-product')}}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
