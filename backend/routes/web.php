@@ -112,7 +112,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/blog-categories/create', [BlogCategoryController::class, 'create'])->name('create-blog-categories');
     Route::post('/blog-categories/store', [BlogCategoryController::class, 'store'])->name('store-blog-categories');
     // delete blog category
-    Route::delete('/blog-categories/{id}', [BlogCategoryController::class, 'deleteBlogCategories'])->name('delete-blog-categories');
+    Route::delete('/blog-category/{id}', [BlogCategoryController::class, 'deleteBlogCategory'])->name('delete-blog-categories');
     // edit & update blog category
     Route::get('blog-categories/{id}/edit', [BlogCategoryController::class, 'edit'])->name('blog-categories-edit');
     Route::put('blog-categories/{id}/update', [BlogCategoryController::class, 'update'])->name('blog-categories-update');
