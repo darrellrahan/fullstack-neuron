@@ -109,7 +109,7 @@ class AuthController extends Controller
                 ])
                 // Detail Tambahan
                 ->setDimensions([new Dimension([
-                        'name' => 'city',
+                        'name' => 'country',
                     ]),
                 ])
                 // Mengambil Data
@@ -120,16 +120,19 @@ class AuthController extends Controller
 
             // Mengirimkan request ke Google Analytic Properties
             $analyticsData = $analyticsClient->runReport($analyticsConfig);
-
+            // return dd($analyticsData);
             if (!empty($analyticsData->getRows())) {
-                // Akses baris pertama (karena Anda hanya memiliki satu baris)
-                $firstRow = $analyticsData->getRows()[0];
+                $activeUsers = 0;
+                for($i = 0; $i < $analyticsData->getRowCount(); $i++) {
+                    // Akses baris pertama (karena Anda hanya memiliki satu baris)
+                    $firstRow = $analyticsData->getRows()[$i];
 
-                // Akses metrik dalam baris pertama
-                $metrics = $firstRow->getMetricValues();
+                    // Akses metrik dalam baris pertama
+                    $metrics = $firstRow->getMetricValues();
 
-                // Mengambil banyak visitor
-                $activeUsers = $metrics[0]->getValue();
+                    // Mengambil banyak visitor
+                    $activeUsers = $activeUsers + $metrics[0]->getValue();
+                }
             } else {
                 $activeUsers = null;
             }

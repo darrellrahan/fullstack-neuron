@@ -140,24 +140,21 @@
                 <h5 class="text-bold">Plus Value</h5>
                 <ul>
                     @foreach ($career->jobPlusValues as $plusValue)
-                    <li class="pb-3">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div>
-                                {{ $plusValue->name }}
-                            </div>
-                            <div class="d-flex">
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}">Edit</button>
-                                <form method="POST" action="{{ route('delete-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger ml-3">Delete</button>
-                                </form>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                    <li>
 
-                <!-- Modal edit plus value -->
+
+                        <div>
+                        </div>
+                        <div class="d-flex">
+                                {{ $plusValue->name }}
+                                <a role="button" type="button" class="far fa-edit btn-sm btn-outline-warning" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}"></a>
+                                <a role="button" type="submit" class="far fa-trash-alt btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal{{$plusValue->id}}"></a>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                            </div>
+                            </div>
+                        </li>
+
+                        <!-- Modal edit plus value -->
                 <div class="modal fade" id="editPlusValueModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="editPlusValueModalLabel{{ $plusValue->id }}" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -185,6 +182,32 @@
                     </div>
                 </div>
                 <!-- Akhir modal edit plus value -->
+
+                <!-- Modal Konfirmasi Hapus -->
+                <div class="modal fade" id="confirmDeleteModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>{{ $plusValue->name }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <form method="POST" action="{{ route('delete-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Konfirmasi Hapus End -->
                 @endforeach
                 </ul>
 

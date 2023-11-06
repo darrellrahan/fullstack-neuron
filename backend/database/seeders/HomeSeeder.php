@@ -22,7 +22,7 @@ class HomeSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         DB::table('home')->insert([
-            'hero_image' => 'http://localhost:8000/img/home/hero_image.jpg',
+            'hero_image' => url('/img/home/hero_image.jpg'),
             'about_desc' => 'Neuronworks Indonesia is a company that moving on information technology sector. We are specialize in developing end-to-end solutions to empowering other company effectively navigate to dynamic business challenges. By today we have successfully managed over 1000+ local and international IT projects, including most popular international ventures such as Telkomcel Timor Leste and Telin Malaysia.',
             'about_title'=> 'About',
             'service_title'=> 'Our Services',
