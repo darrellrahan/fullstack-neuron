@@ -34,8 +34,10 @@ Before you begin, ensure you have the following installed:
 
 2. Set up the Laravel backend:
 
+-   Download the Google Analytic (GA) Credentials json in your Google Api & Services Credentials by Creating Credentials with OAuth client ID
 -   Navigate to the backend/ directory.
 -   Copy the .env.example file to .env and configure your database settings and other environment variables.
+-   Place the GA Credentials json in app/analytics
 -   Run the following commands:
     ```bash
     composer install

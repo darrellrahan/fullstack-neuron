@@ -12,6 +12,7 @@ class EditRecord extends Model
     protected $fillable = [
         'action',
         'section',
+        'message',
         'user_id',
         'role_id'
     ];

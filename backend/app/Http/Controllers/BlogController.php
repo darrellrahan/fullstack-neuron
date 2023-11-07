@@ -37,10 +37,11 @@ class BlogController extends Controller
     public function deleteBlog($id)
     {
         Article::where('user_id', $id)->delete();
-        
-        $blogs = Article::findOrFail($id);
-        $blogs->delete();
 
+        $blogs = Article::findOrFail($id);
+        $blogName = $blogs->title;
+        $blogs->delete();
+        deleteEdRec('Blog', Auth::id(), Auth::user()->role_id, $blogName);
         return redirect()->route('blog')->with('success', 'Blog has been deleted successfully.');
     }
 
@@ -80,9 +81,9 @@ class BlogController extends Controller
 
         // Mengisi 'user_id' dengan ID pengguna yang sedang login
         $blog->user_id = Auth::id();
-        
-        $blog->save();
 
+        $blog->save();
+        addEdRec('Blog', Auth::id(), Auth::user()->role_id, $blog->title);
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
         return redirect()->route('blog')->with('success', 'Blog added successfully.');
     }
@@ -138,7 +139,7 @@ class BlogController extends Controller
 
         // Simpan perubahan
         $blog->save();
-
+        // editEdRec('Blog', Auth::id(), Auth::user()->role_id, $blog);
         // Redirect ke halaman portofolio dengan pesan sukses
         return redirect()->route('blog')->with('success', 'Blog updated successfully.');
     }
