@@ -1,7 +1,8 @@
 <?php
 use App\Models\EditRecord;
+use Illuminate\Support\Carbon;
 
-    function addEdRec(string $section, int $user_id, int $role_id, string $addedValue){
+    function addRec(string $section, int $user_id, int $role_id, string $addedValue){
         EditRecord::create([
             'action' => 'Add',
             'section' => $section,
@@ -11,7 +12,8 @@ use App\Models\EditRecord;
         ]);
         return 0;
     }
-    function editEdRec(string $section, int $user_id, int $role_id, string $before, string $after){
+
+    function editRec(string $section, int $user_id, int $role_id, string $before, string $after){
         EditRecord::create([
             'action' => 'Edit',
             'section' => $section,
@@ -21,7 +23,8 @@ use App\Models\EditRecord;
         ]);
         return 0;
     }
-    function deleteEdRec(string $section, int $user_id, int $role_id, string $deletedValue){
+
+    function deleteRec(string $section, int $user_id, int $role_id, string $deletedValue){
         EditRecord::create([
             'action' => 'Delete',
             'section' => $section,
@@ -31,4 +34,5 @@ use App\Models\EditRecord;
         ]);
         return 0;
     }
+
 ?>

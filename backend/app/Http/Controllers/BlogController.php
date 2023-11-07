@@ -10,6 +10,7 @@ use App\Http\Resources\BlogResource;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\BlogDetailResource;
 use App\Http\Resources\ArticlePagesResource;
+use App\Models\EditRecord;
 
 class BlogController extends Controller
 {
@@ -41,7 +42,7 @@ class BlogController extends Controller
         $blogs = Article::findOrFail($id);
         $blogName = $blogs->title;
         $blogs->delete();
-        deleteEdRec('Blog', Auth::id(), Auth::user()->role_id, $blogName);
+        deleteRec('Blog', Auth::id(), Auth::user()->role_id, $blogName);
         return redirect()->route('blog')->with('success', 'Blog has been deleted successfully.');
     }
 
@@ -83,7 +84,7 @@ class BlogController extends Controller
         $blog->user_id = Auth::id();
 
         $blog->save();
-        addEdRec('Blog', Auth::id(), Auth::user()->role_id, $blog->title);
+        addRec('Blog', Auth::id(), Auth::user()->role_id, $blog->title);
         // Redirect ke halaman yang sesuai atau tampilkan pesan sukses
         return redirect()->route('blog')->with('success', 'Blog added successfully.');
     }

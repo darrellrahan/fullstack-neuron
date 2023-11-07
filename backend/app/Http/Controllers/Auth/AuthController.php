@@ -22,8 +22,7 @@ use Google\Analytics\Data\V1beta\DateRange as DateRange;
 use Google\Analytics\Data\V1beta\Dimension as Dimension;
 use Google\Analytics\Data\V1beta\Metric as Metric;
 use Google\Analytics\Data\V1beta\RunReportRequest as RunReportRequest;
-
-
+use Illuminate\Support\Carbon;
 
 class AuthController extends Controller
 {
@@ -143,8 +142,9 @@ class AuthController extends Controller
             $portofolioData = Portofolio::all()->count();
             $productData = Product::all()->count();
             $todos = ToDoList::all();
-            $editRecord = EditRecord::with(['user', 'role'])->get();
-
+            $editRecord = EditRecord::query()
+                    ->with(['user','role'])
+                    ->paginate(10);
             // Membuat login record
             $loginRecords = LoginRecord::query()
                     ->with('user','role')

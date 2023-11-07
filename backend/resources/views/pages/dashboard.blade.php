@@ -143,27 +143,23 @@
             <!-- DIRECT CHAT -->
             <div class="card direct-chat direct-chat-primary">
               <div class="card-header bg-secondary">
-                <h3 class="card-title">Direct Chat</h3>
-
+                  <h3 class="card-title">
+                    <i class="fas fa-history"></i>
+                    Edit History
+                  </h3>
                 <div class="card-tools">
-                  <span title="3 New Messages" class="badge badge-primary">3</span>
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
                     <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                    <i class="fas fa-comments"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
                   </button>
                 </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table class="table align-items-center">
+                <table class="table text-center">
                     <tr>
                         <th>Action</th>
                         <th>Section</th>
+                        <th>Message</th>
                         <th>User</th>
                         <th>Role</th>
                         <th>Time</th>
@@ -172,6 +168,7 @@
                     <tr>
                         <td>{{$record->action}}</td>
                         <td>{{$record->section}}</td>
+                        <td>{{$record->message}}</td>
                         <td>{{$record->user->firstname ." ". $record->user->lastname}}</td>
                         <td>{{$record->user->role->role_name}}</td>
                         <td>{{$record->created_at}}</td>
@@ -181,14 +178,7 @@
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <form action="#" method="post">
-                  <div class="input-group">
-                    <input type="text" name="message" placeholder="Type Message ..." class="form-control">
-                    <span class="input-group-append">
-                      <button type="button" class="btn btn-primary">Send</button>
-                    </span>
-                  </div>
-                </form>
+                {{$editRecord->links('pagination::bootstrap-4')}}
               </div>
               <!-- /.card-footer-->
             </div>
@@ -251,8 +241,8 @@
             <div class="card bg-gradient-info">
               <div class="card-header border-0">
                 <h3 class="card-title">
-                  <i class="fas fa-th mr-1"></i>
-                  Login Record
+                  <i class="fas fa-sign-in-alt"></i>
+                    Login Record
                 </h3>
 
                 <div class="card-tools">
@@ -262,7 +252,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <table class="table table-striped">
+                <table class="table table-striped text-center">
                 @foreach($loginRecords as $loginRecord)
                     <tr class="">
                         <td>
@@ -282,7 +272,7 @@
                 <div class="card-footer bg-transparent justify-content-center">
                     <div class="row">
                         <div class="mx-auto">
-                            {{$loginRecords->links('pagination::simple-bootstrap-4')}}
+                            {{$loginRecords->links('pagination::bootstrap-4')}}
                         </div>
                     </div>
                 <!-- /.row -->
