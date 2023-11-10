@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Add Career</h1>
+                <h1 class="m-0">Edit Career</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -33,10 +33,7 @@
 
     <div class="container">
         <div class="mt-3">
-            <form action="{{ route('career-update', $career->id) }}" method="POST">
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-
+                <form id="careerEditForm">
                 <div class="form-group">
                     <label for="positionName">Position Name</label>
                     <input type="text" class="form-control" id="positionName" name="name" value="{{ $career->name_position }}" required>
@@ -44,7 +41,10 @@
 
                 <div class="form-group">
                     <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location" name="location" value="{{ $career->location }}" required>
+                    <select class="form-control" id="location" name="location">
+                        <option value="Bandung" {{$career->location == 'Bandung' ? 'selected' : ''}}>Bandung</option>
+                        <option value="Jakarta" {{$career->location == 'Jakarta' ? 'selected' : ''}}>Jakarta</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
@@ -55,63 +55,6 @@
                 <div class="form-group">
                     <label for="responsibilities">Responsibilities</label>
                     <textarea class="form-control" id="responsibilities" name="responsibilities" rows="5" required>{{ $career->responsibilities }}</textarea>
-                </div>
-
-                <div id="collapse{{ $career->id }}" class="collapse" aria-labelledby="heading{{ $career->id }}" data-parent="#careerAccordion">
-                    <div class="card-body">
-                        <p class="career-desc">{{ $career->desc }}</p>
-                        <h5 class="text-bold">Responsibility</h5>
-                        <p class="career-respon">{{ $career->responsibilities }}</p>
-                        <h5 class="text-bold">Skill</h5>
-                        <ul>
-                            @foreach ($career->skillRequirements as $skill)
-                            <li class="pb-3">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <div>
-                                        {{ $skill->name }}
-                                    </div>
-                                    <div class="d-flex">
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editSkillModal{{ $skill->id }}">Edit</button>
-                                        <form method="POST" action="{{ route('delete-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger ml-3">Delete</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </li>
-                            <!-- Modal edit skill -->
-                            @endforeach
-                        </ul>
-                        <!-- Akhir modal edit skill -->
-                    </div>
-                </div>
-
-                <div class="modal fade" id="editSkillModal{{ $skill->id }}" tabindex="-1" aria-labelledby="editSkillModalLabel{{ $skill->id }}" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editSkillModalLabel">Edit Skill</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form method="POST" action="{{ route('edit-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="editSkillName">Skill Name</label>
-                                        <input type="text" class="form-control" id="editSkillName" name="name" value="{{ $skill->name }}">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
 
                 <h5 class="text-bold">Qualification</h5>
@@ -137,18 +80,26 @@
                         <p>{{ $career->jobQualification->other }}</p>
                     </div>
                 </div>
-                <div class="d-flex" style="justify-content: space-between;">
-                <label for="plusValue">Plus Value</label>
-            </div>
-            <ul>
-                    @foreach ($career->jobPlusValues as $plusValue)
-                    <li>
-                        <div>
-                        </div>
-                            <div class="d-flex">
-                                {{ $plusValue->name }}
-                                <a role="button" type="button" class="far fa-edit btn-sm btn-outline-warning" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}"></a>
-                                <a role="button" type="submit" class="far fa-trash-alt btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal{{$plusValue->id}}"></a>
+
+
+
+            <div style="display: flex; justify-content: space-between; " >
+
+                <div class="form-group">
+                    <div class="d-flex" >
+                        <label for="plusValue">Plus Value</label>
+                    </div>
+                    <ul>
+                        @foreach ($career->jobPlusValues as $plusValue)
+                        <li>
+                            <div style="display: flex; justify-content: space-between; align-items: center; width:500px" >
+                                <div class="d-flex">
+                                    {{ $plusValue->name }}
+                                </div>
+                                <div>
+                                    <a role="button" type="button" class="far fa-edit btn-sm btn-outline-warning" data-toggle="modal" data-target="#editPlusValueModal{{ $plusValue->id }}"></a>
+                                    <a role="button" type="submit" class="far fa-trash-alt btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmDeleteModal{{$plusValue->id}}"></a>
+                                </div>
                             </div>
                         </li>
 
@@ -161,28 +112,29 @@
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
-                            </div>
-                            <form method="POST" action="{{ route('edit-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
-                                @csrf
-                                @method('PUT')
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for "editPlusValueName">Name</label>
-                                        <input type="text" class="form-control" id="editPlusValueName" name="name" value="{{ $plusValue->name }}">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </form>
+                                <form method="POST" action="{{ route('edit-plus-value', ['career_id' => $career->id, 'plusvalue_id' => $plusValue->id]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for "editPlusValueName">Name</label>
+                                            <input type="text" class="form-control" id="editPlusValueName" name="name" value="{{ $plusValue->name }}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Akhir modal edit plus value -->
+                    <!-- Akhir modal edit plus value -->
 
-                <!-- Modal Konfirmasi Hapus -->
-                <div class="modal fade" id="confirmDeleteModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+
+                    <!-- Modal Konfirmasi Hapus -->
+                    <div class="modal fade" id="confirmDeleteModal{{ $plusValue->id }}" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -209,35 +161,102 @@
                 @endforeach
                 <a type="button" class="fas fa-plus btn-sm btn-outline-primary" data-toggle="modal" data-target="#addPlusValueModal">' Add Plus Value'</a>
             </ul>
+        </div>
 
 
 
-                <div class="form-group">
-                    <div class="d-flex">
-                        <label for="skillRequirements">Skill Requirement</label>
+        <div class="form-group">
+            <div class="d-flex">
+                <label for="skillRequirements">Skill Requirement</label>
+            </div>
+
+            <ul>
+                @foreach ($career->skillRequirements as $skill)
+                <li>
+                    <div style="display: flex; justify-content: space-between; align-items: center; width:500px" >
+                        <div id="skillList">
+                            {{ $skill->name }}
+                        </div>
+                        <div>
+                            <a role="button" type="button" class="far fa-edit btn-sm btn-outline-warning" data-toggle="modal" data-target="#editSkillModal{{ $skill->id }}"></a>
+                            <a role="button" type="submit" class="far fa-trash-alt btn-sm btn-outline-danger" data-toggle="modal" data-target="#confirmSkillDeleteModal{{$skill->id}}"></a>
+                        </div>
                     </div>
+                    </li>
+                    <!-- Modal edit plus value -->
+                    <div class="modal fade" id="editSkillModal{{ $skill->id }}" tabindex="-1" aria-labelledby="editSkillModalLabel{{ $skill->id }}" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editSkillModalLabel">Edit Skill</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form method="POST" action="{{ route('edit-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="editSkillName">Name</label>
+                                            <input type="text" class="form-control" id="editSkillName" name="name" value="{{ $skill->name }}">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Akhir modal edit plus value -->
 
-                    <ul>
-                        @foreach ($career->skillRequirements as $skill)
-                        <li>{{ $skill->name }}</li>
-                        @endforeach
-                        <a type="button" class="fas fa-plus btn-sm btn-outline-primary" data-toggle="modal" data-target="#addSkillModal">' Add Skill'</a>
-                    </ul>
-                </div>
 
-                <div class="form-group">
-                    <label for="link">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" value="{{ $career->link }}">
+                    <!-- Modal Konfirmasi Hapus -->
+                    <div class="modal fade" id="confirmSkillDeleteModal{{ $skill->id }}" tabindex="-1" aria-labelledby="confirmSkillDeleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="confirmSkillDeleteModalLabel">Confirm Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete <strong>{{ $skill->name }}</strong>?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <form method="POST" action="{{ route('delete-skill', ['career_id' => $career->id, 'skill_id' => $skill->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- Modal Konfirmasi Hapus End -->
+                @endforeach
+                <a type="button" class="fas fa-plus btn-sm btn-outline-primary" data-toggle="modal" data-target="#addSkillModal">' Add Skill'</a>
+            </ul>
+        </div>
+    </div>
 
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" name="gender" required>
-                        <option value="Man" {{ $career->jobQualification->gender == 'Man' ? 'selected' : '' }}>Man</option>
-                        <option value="Female" {{ $career->jobQualification->gender == 'Female' ? 'selected' : '' }}>Female</option>
-                        <option value="Man/Female" {{ $career->jobQualification->gender == 'Man/Female' ? 'selected' : '' }}>Man/Female</option>
-                    </select>
-                </div>
+    <div class="form-group">
+        <label for="link">Link</label>
+        <input type="text" class="form-control" id="link" name="link" value="{{ $career->link }}">
+    </div>
+
+    <div class="form-group">
+        <label for="gender">Gender</label>
+        <select class="form-control" id="gender" name="gender" required>
+            <option value="Man" {{ $career->jobQualification->gender == 'Man' ? 'selected' : '' }}>Man</option>
+            <option value="Female" {{ $career->jobQualification->gender == 'Female' ? 'selected' : '' }}>Female</option>
+            <option value="Man/Female" {{ $career->jobQualification->gender == 'Man/Female' ? 'selected' : '' }}>Man/Female</option>
+        </select>
+    </div>
 
                 <div class="form-group">
                     <label for="domicile">Domicile</label>
@@ -260,7 +279,7 @@
                 </div>
 
                 <a href="{{ URL::previous() }}" class="btn btn-primary">Back</a>
-                <button type="submit" class="btn btn-primary float-right">Update</button>
+                <button id="careerUpdateButton" type="submit" class="btn btn-primary float-right">Update</button>
             </form>
 
             <!-- Modal untuk menambahkan skill -->
@@ -275,7 +294,7 @@
                         </div>
                         <div class="modal-body">
                             <!-- Form untuk menambahkan skill -->
-                            <form action="{{ route('career.add-skill', $career->id) }}" method="post">
+                            <form id="addSkillForm" action="{{ route('career.add-skill', $career->id) }}" method="post">
                                 {{ csrf_field() }}
                                 <div class="form-group">
                                     <label for="skill_name">Skill Name</label>
@@ -312,7 +331,50 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Modal untuk mMengupadate career -->
+            <div class="modal fade" id="updateCareerModal" tabindex="-1" aria-labelledby="updateCareerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="updateCareerModalLabel">Update Career</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('career-update', $career->id) }}" method="post">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
+                                <div class="form-group">
+                                    <label for="career_name">Are you sure the data is updated?</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Modal untuk mMengupadate career -->
         </div>
     </div>
 </div>
+<script>
+$(document).ready(function() {
+    $('#careerUpdateButton').on('click' ,function () {
+        var careerData = $('#careerEditForm').serialize();
+
+        $.ajax({
+            type: "POST",
+            url: "{{route('career-update', $career->id)}}",
+            data: careerData,
+            success: function (response) {
+                location.reload();
+            }
+        });
+
+    });
+})
+</script>
 @endsection
