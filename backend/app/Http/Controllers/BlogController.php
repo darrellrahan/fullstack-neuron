@@ -98,6 +98,8 @@ class BlogController extends Controller
 
     public function edit($id)
     {
+        //! CATEGORY ARTICLE
+        $groupCategories = 
         $categories = ArticleCategory::all();
         $blog = Article::findOrFail($id);
         return view('cms.Blog.edit', compact('blog', 'categories'));
@@ -153,6 +155,7 @@ class BlogController extends Controller
         $query = Article::query();
 
         if ($category) {
+            //! ARTICLE CATEGORY
             $query->whereHas('articleCategory', function ($query) use ($category) {
                 $query->where('name', $category);
             });

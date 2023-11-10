@@ -203,11 +203,14 @@ class CareerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $career = Job::findOrFail($id);
+        try {
+            //code...
+            return dd($request->all());
+            $career = Job::findOrFail($id);
 
         // Validasi data yang dikirim oleh form
         $validatedData = $request->validate([
-            'name' => 'required|string',
+            'name_position' => 'required|string',
             'location' => 'required|string',
             'desc' => 'required|string',
             'responsibilities' => 'required|string',
@@ -241,6 +244,9 @@ class CareerController extends Controller
 
         // Redirect ke halaman yang sesuai setelah berhasil mengedit
         return redirect()->route('career')->with('success', 'Career updated successfully');
+    } catch (\Throwable $th) {
+        return dd($th);
+    }
     }
 
     public function addSkillEdit(Request $request, $career_id)
