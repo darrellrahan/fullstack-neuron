@@ -25,7 +25,6 @@ class ArticlePageSeeder extends Seeder
             'title' => 'Exploring New Horizons',
             'desc' => 'Embark on a journey of discovery with our captivating blog, where knowledge meets fascination, and curiosity becomes your compass.',
             'image' => 'http://127.0.0.1:8000/img/blog/blogpages.png',
-            'cta_contact_id' => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

@@ -1,33 +1,34 @@
+import About from "./components/About";
+import Article from "./components/Article";
+import Chatbot from "./components/Chatbot";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
-import MainContent from "./components/MainContent";
+import Services from "./components/Services";
+import Testimonial from "./components/Testimonial";
 
 async function getData() {
-  const res = await fetch("http://neuronworks.free.nf/api/service-pages");
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
+  const res = await fetch("http://localhost:8000/api/home");
 
-  setTimeout(() => {
-    if (!res.ok) {
-      // This will activate the closest `error.js` Error Boundary
-      throw new Error("Failed to fetch data");
-    }
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
 
-    return res.json();
-  }, 10000);
+  return res.json();
 }
 
 export default async function Home() {
   const data = await getData();
 
-  console.log(data);
-
   return (
     <>
       <Header />
-      <Hero />
-      <MainContent />
+      <Hero data={data.data[0].hero} />
+      <Chatbot />
+      <About data={data.data[0]} />
+      <Services data={data.data[0].service} />
+      <Testimonial data={data.data[0]} />
+      <Article data={data.data[0].article} />
       <Footer />
     </>
   );
