@@ -3,8 +3,9 @@
 import { CaretDown } from "@phosphor-icons/react/dist/ssr/CaretDown";
 import React, { useRef, useState } from "react";
 
-function MainContent() {
+function MainContent({ data }: { data: any }) {
   const [defaultDisplay, setDefaultDisplay] = useState("hidden");
+  const [tab, setTab] = useState(data[0].name);
   const loadMore = useRef<HTMLButtonElement>(null);
 
   return (
@@ -31,13 +32,18 @@ function MainContent() {
         </div>
       </div>
       <div className="flex gap-6 text-lg text-[#637381] mb-8">
-        <button className="border-b-[3px] pb-3 border-[#D61924] font-medium text-[#333435]">
-          Multimedia
-        </button>
-        <button className="pb-3">CRM Application</button>
-        <button className="pb-3">Work Management system</button>
-        <button className="pb-3">System Integrator</button>
-        <button className="pb-3">Business Intellegence</button>
+        {data.map((item: any) => (
+          <button
+            onClick={() => setTab(item.name)}
+            className={`border-b-[3px] pb-3 font-medium text-[#333435] duration-300 ease-linear ${
+              tab === item.name
+                ? "border-[#D61924] text-black"
+                : "border-white text-[#637381]"
+            }`}
+          >
+            {item.name}
+          </button>
+        ))}
       </div>
       <h1 className="text-[#333435] font-bold text-5xl">Multimedia</h1>
       <p className="text-[#637381] py-6 text-lg">
