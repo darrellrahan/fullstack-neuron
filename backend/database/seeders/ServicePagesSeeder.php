@@ -16,7 +16,7 @@ class ServicePagesSeeder extends Seeder
     public function run()
     {
         DB::statement('ALTER TABLE service_pages AUTO_INCREMENT=1');
-        
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('service_pages')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

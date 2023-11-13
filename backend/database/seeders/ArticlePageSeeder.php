@@ -16,7 +16,7 @@ class ArticlePageSeeder extends Seeder
     public function run()
     {
         DB::statement('ALTER TABLE article_pages AUTO_INCREMENT=1');
-        
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('article_pages')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

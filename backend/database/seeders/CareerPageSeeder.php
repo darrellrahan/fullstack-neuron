@@ -16,7 +16,7 @@ class CareerPageSeeder extends Seeder
     public function run()
     {
         DB::statement('ALTER TABLE career_pages AUTO_INCREMENT=1');
-        
+
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         DB::table('career_pages')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

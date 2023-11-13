@@ -41,7 +41,7 @@ class CareerController extends Controller
 
         // Pastikan career ditemukan
         if (!$career) {
-            return redirect()->route('career')->with('error', 'Career not found.');
+            return redirect()->route('career-edit')->with('error', 'Career not found.');
         }
 
         // Temukan deliverable berdasarkan ID
@@ -49,12 +49,12 @@ class CareerController extends Controller
 
         // Pastikan deliverable ditemukan
         if (!$skill) {
-            return redirect()->route('career')->with('error', 'Career not found.');
+            return redirect()->route('career-edit')->with('error', 'Career not found.');
         }
 
         $skill->delete();
 
-        return redirect()->route('career')->with('success', 'Career deleted successfully.');
+        return redirect()->route('career-edit', $career->id)->with('success', 'Career deleted successfully.');
     }
 
     public function deletePlusValue($career_id, $plusvalue_id)
@@ -74,14 +74,13 @@ class CareerController extends Controller
 
         $plusValue->delete();
 
-        return redirect()->route('career')->with('success', 'Plus Value deleted successfully.');
+        return redirect()->route('career-edit', $career->id)->with('success', 'Plus Value deleted successfully.');
     }
 
     public function updatePlusValue(Request $request, $career_id, $plusvalue_id)
     {
         // Dapatkan data Plus Value yang akan diupdate
         $plusValue = JobPlusValue::find($plusvalue_id);
-
         if (!$plusValue) {
             return back()->with('error', 'Plus Value not found.');
         }
@@ -89,8 +88,7 @@ class CareerController extends Controller
         // Update data Plus Value
         $plusValue->name = $request->input('name');
         $plusValue->save();
-
-        return redirect()->route('show-career')->with('success', 'Plus Value updated successfully.');
+        return redirect()->route('career-edit', $career_id)->with('success', 'Plus Value updated successfully.');
     }
 
     public function updateSkill(Request $request, $career_id, $skill_id)
@@ -106,7 +104,7 @@ class CareerController extends Controller
         $skill->name = $request->input('name');
         $skill->save();
 
-        return redirect()->route('show-career')->with('success', 'Skill updated successfully.');
+        return redirect()->route('career-edit', $career_id)->with('success', 'Skill updated successfully.');
     }
 
     public function create()
@@ -205,11 +203,14 @@ class CareerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $career = Job::findOrFail($id);
+        try {
+            //code...
+            return dd($request->all());
+            $career = Job::findOrFail($id);
 
         // Validasi data yang dikirim oleh form
         $validatedData = $request->validate([
-            'name' => 'required|string',
+            'name_position' => 'required|string',
             'location' => 'required|string',
             'desc' => 'required|string',
             'responsibilities' => 'required|string',
@@ -243,6 +244,9 @@ class CareerController extends Controller
 
         // Redirect ke halaman yang sesuai setelah berhasil mengedit
         return redirect()->route('career')->with('success', 'Career updated successfully');
+    } catch (\Throwable $th) {
+        return dd($th);
+    }
     }
 
     public function addSkillEdit(Request $request, $career_id)
