@@ -8,6 +8,10 @@ function MainContent({ data }: { data: any }) {
   const [tab, setTab] = useState(data[0].name);
   const loadMore = useRef<HTMLButtonElement>(null);
 
+  const filteredData = data.find((item: any) => item.name === tab);
+
+  console.log(filteredData);
+
   return (
     <div className="py-12 px-32">
       <div className="flex justify-between mb-12">
@@ -45,139 +49,33 @@ function MainContent({ data }: { data: any }) {
           </button>
         ))}
       </div>
-      <h1 className="text-[#333435] font-bold text-5xl">Multimedia</h1>
-      <p className="text-[#637381] py-6 text-lg">
-        Highly multimedia content, UI/UX Design, video editing, film and
-        animation, social media management, script writting, Photography, Logo
-        design and visual graphic design for your product.
-      </p>
+      <h1 className="text-[#333435] font-bold text-5xl mb-6">
+        {filteredData.name}
+      </h1>
+      <p className="text-[#637381] mb-12 text-lg">{filteredData.desc}</p>
       <div className="grid grid-cols-3 gap-8 mb-12">
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
+        {filteredData.portofolio.map((item: any) => (
+          <div className="shadow-xl rounded-[32px]">
+            <img
+              src="/assets/porto-project.svg"
+              alt="Multimedia Photo 1"
+              width={500}
+              height={500}
+              className="w-full rounded-t-[32px]"
+            />
+            <div className="py-4 px-6">
+              <h4 className="text-[#333435] font-medium mb-2">{item.name}</h4>
+              <p className="text-[#333435] mb-1">{item.customer_name}</p>
+              <p className="text-[#637381]">
+                {new Intl.DateTimeFormat("en-GB", {
+                  year: "numeric",
+                  month: "short",
+                }).format(new Date(item.created_at))}{" "}
+                - Now
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className="shadow-xl rounded-[32px]">
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className={`shadow-xl rounded-[32px] ${defaultDisplay}`}>
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className={`shadow-xl rounded-[32px] ${defaultDisplay}`}>
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
-        <div className={`shadow-xl rounded-[32px] ${defaultDisplay}`}>
-          <img
-            src="/assets/porto-project.svg"
-            alt="Multimedia Photo 1"
-            width={500}
-            height={500}
-            className="w-full rounded-t-[32px]"
-          />
-          <div className="py-4 px-6">
-            <h4 className="text-[#333435] font-medium mb-2">My Simetri</h4>
-            <p className="text-[#333435] mb-1">PT. Telekomunikasi Indonesia</p>
-            <p className="text-[#637381]">Sep 2017 - Current</p>
-          </div>
-        </div>
+        ))}
       </div>
       <div className="flex justify-center">
         <button

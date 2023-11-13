@@ -19,10 +19,10 @@ class ServicePageResource extends JsonResource
             'id' => $this->id,
             'name' =>$this->name,
             'desc' => $this->desc,
-            'portofolio' => $this->portofolio->map(function ($portofolio){
+            'portofolio' => $this->portofolio->map(function ($portofolio) {
                 return [
                     'name'=>$portofolio->name,
-                    'costumer_name' => $portofolio->costumer_name,
+                    'customer_name' => $portofolio->customer_name,
                     'desc' => $portofolio->desc,
                     'category' => $portofolio->category,
                     'image' => $portofolio->image,
